@@ -1,7 +1,9 @@
 import {StyleSheet, Text, View, Button, TextInput, ScrollView, FlatList} from 'react-native';
+import {StatusBar} from "expo-status-bar";
 import {useState} from "react";
 import GoalItem from "./Components/GoalItem";
 import GoalInput from "./Components/GoalInput";
+import Static from "react-native-web/dist/modules/prefixStyles/static";
 
 export default function App() {
 
@@ -33,29 +35,33 @@ export default function App() {
     }
 
     return (
-        <View style={styles.appContainer}>
-            <Button title='Add Goal' color='#5e0acc' onPress={startAddGoalHandler}/>
-            <GoalInput goalInputHandler={goalInputHandler}
-                       visible={modalIsVisible}
-                       addGoalHandler={addGoalHandler}
-                       endAddGoalHanlder={endAddGoalHanlder}/>
+        <>
+            <StatusBar style='light'></StatusBar>
+            <View style={styles.appContainer}>
+                <Button title='Add Goal' color='#a065ec' onPress={startAddGoalHandler}/>
+                <GoalInput goalInputHandler={goalInputHandler}
+                           visible={modalIsVisible}
+                           addGoalHandler={addGoalHandler}
+                           endAddGoalHanlder={endAddGoalHanlder}/>
 
-            <View style={styles.goalsContainer}>
-                <FlatList data={listGoals}
-                          renderItem={(itemData) => {
-                              return (
-                                  <GoalItem text={itemData.item.text}
-                                            id={itemData.item.id}
-                                            onDelete={deleteGoalHandler}/>
-                              )
-                          }}
-                          keyExtractor={(item, index) => {
-                              return item.id
-                          }}
-                          alwaysBounceVertical={false}/>
+                <View style={styles.goalsContainer}>
+                    <FlatList data={listGoals}
+                              renderItem={(itemData) => {
+                                  return (
+                                      <GoalItem text={itemData.item.text}
+                                                id={itemData.item.id}
+                                                onDelete={deleteGoalHandler}/>
+                                  )
+                              }}
+                              keyExtractor={(item, index) => {
+                                  return item.id
+                              }}
+                              alwaysBounceVertical={false}/>
+                </View>
+
             </View>
+        </>
 
-        </View>
     );
 }
 
@@ -64,7 +70,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 50,
         paddingHorizontal: 16,
-
+        backgroundColor: '#1e085a'
     },
     goalsContainer: {
         flex: 5
